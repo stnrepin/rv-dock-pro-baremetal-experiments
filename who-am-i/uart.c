@@ -60,7 +60,7 @@ void sys_uart_putc(char c)
     write32(addr + 0x00, c);
 }
 
-void sys_uart_puts(const char* s)
+void sys_uart_puts(const char *s)
 {
     while (*s != '\0') {
         sys_uart_putc(*s);
