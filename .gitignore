@@ -1,3 +1,8 @@
-.o
-.bin
+# Build dir
+build/
+
+# XFEL sources
 xfel/
+
+# Clangd cache
+.cache

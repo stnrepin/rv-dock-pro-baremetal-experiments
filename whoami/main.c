@@ -1,6 +1,7 @@
+#include "sys/uart.h"
+#include "sys/sysdef.h"
+
 #include "art.h"
-#include "uart.h"
-#include "sysdef.h"
 
 #define LRADC_BASE (0x02009800)
 
@@ -41,20 +42,13 @@ u8_t sys_lradc_data(void) {
     return read32(LRADC_DATA);
 }
 
-enum states : int {
+enum states {
     STATE_A = 0,
     STATE_B = 1,
     STATE_C = 2,
     STATE_D = 3,
     STATE_END = 4,
 };
-
-static enum states on_button(const char* const * diags, enum states cur_state) {
-    sys_uart_puts(diags[cur_state]);
-
-    cur_state++;
-    return cur_state;
-}
 
 u64_t counter(void)
 {

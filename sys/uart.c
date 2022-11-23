@@ -1,5 +1,5 @@
-#include "uart.h"
-#include "sysdef.h"
+#include "sys/uart.h"
+#include "sys/sysdef.h"
 
 // Taken from
 //      https://github.com/bigmagic123/d1-nezha-baremeta/blob/main/src/1.startup/main.c
