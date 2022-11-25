@@ -4,8 +4,7 @@
 // Taken from
 //      https://github.com/bigmagic123/d1-nezha-baremeta/blob/main/src/1.startup/main.c
 
-void sys_uart_init(void)
-{
+void sys_uart_init(void) {
     virtual_addr_t addr;
     u32_t val;
 
@@ -52,19 +51,16 @@ void sys_uart_init(void)
     write32(addr + 0x0c, val);
 }
 
-void sys_uart_putc(char c)
-{
+void sys_uart_putc(char c) {
     virtual_addr_t addr = 0x02500000;
 
     while((read32(addr + 0x7c) & (0x1 << 1)) == 0);
     write32(addr + 0x00, c);
 }
 
-void sys_uart_puts(const char *s)
-{
+void sys_uart_puts(const char *s) {
     while (*s != '\0') {
         sys_uart_putc(*s);
         s++;
     }
 }
-

@@ -1,6 +1,8 @@
 add_library(
     riscv_d1_sys
         start.S
+        kernel.c
+        lradc.c
         uart.c
 )
 target_include_directories(
