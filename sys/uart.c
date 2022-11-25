@@ -5,8 +5,8 @@
 //      https://github.com/bigmagic123/d1-nezha-baremeta/blob/main/src/1.startup/main.c
 
 void sys_uart_init(void) {
-    virtual_addr_t addr;
-    u32_t val;
+    vaddr_t addr;
+    uint32_t val;
 
     /* Config GPIOB8 and GPIOB9 to txd0 and rxd0 */
     addr = 0x02000030 + 0x04;
@@ -52,7 +52,7 @@ void sys_uart_init(void) {
 }
 
 void sys_uart_putc(char c) {
-    virtual_addr_t addr = 0x02500000;
+    vaddr_t addr = 0x02500000;
 
     while((read32(addr + 0x7c) & (0x1 << 1)) == 0);
     write32(addr + 0x00, c);

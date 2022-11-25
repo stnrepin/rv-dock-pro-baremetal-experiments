@@ -14,7 +14,7 @@ enum states : int {
 };
 
 int main(void) {
-    u8_t data;
+    uint8_t data;
     enum states cur_state = STATE_A;
     const char * const diags[] = {
         [STATE_A] = "- Who am I?\n",

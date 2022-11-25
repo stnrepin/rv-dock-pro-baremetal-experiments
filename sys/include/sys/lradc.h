@@ -4,6 +4,6 @@
 #include "sys/sysdef.h"
 
 void sys_lradc_init(void);
-u8_t sys_lradc_data(void);
+uint8_t sys_lradc_data(void);
 
 #endif // !SYS_LRADC_H

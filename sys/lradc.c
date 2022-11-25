@@ -8,7 +8,7 @@
 #define LRADC_DATA (LRADC_BASE + 0x000c)
 
 void sys_lradc_init(void) {
-    u32_t val;
+    uint32_t val;
 
     // Configure LRADC_BGR_REG[LRADC_RST] to 1 to deassert the reset of LRADC
     val = 0x10000;
@@ -35,6 +35,6 @@ void sys_lradc_init(void) {
     write32(LRADC_CTRL, val);
 }
 
-u8_t sys_lradc_data(void) {
+uint8_t sys_lradc_data(void) {
     return read32(LRADC_DATA);
 }
