@@ -6,7 +6,7 @@ CMAKE_FLAGS := \
 	       -DCMAKE_TOOLCHAIN_FILE=sys/cmake/toolchain-D1.cmake \
 	       -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
-FEL := ../xfel/xfel
+FEL := ./xfel/xfel
 FEL_ADDR = 0x40000000
 
 RM := rm -f
@@ -22,13 +22,10 @@ bins: config
 
 .PHONY: fel-exec
 # Run with sudo
-fel-exec: bins
-	ifndef NAME
-		$(error NAME should be set)
-	endif
+fel-exec:
 	$(FEL) version
 	$(FEL) ddr d1
-	$(FEL) write $(FEL_ADDR) $(BUILD_DIR)/$(NAME)/$(NAME).bin
+	$(FEL) write $(FEL_ADDR) $(BUILD_DIR)/$(NAME).bin
 	$(FEL) exec $(FEL_ADDR)
 
 .PHONY: clean

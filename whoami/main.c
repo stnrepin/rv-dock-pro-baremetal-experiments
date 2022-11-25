@@ -5,7 +5,7 @@
 
 #include "art.h"
 
-enum states {
+enum states : int {
     STATE_A = 0,
     STATE_B = 1,
     STATE_C = 2,
