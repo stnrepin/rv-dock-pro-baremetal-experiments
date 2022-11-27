@@ -11,6 +11,7 @@ set(
     RISCV_OPTIONS
         -mno-relax
         -nostdlib
+        -ffreestanding
         --target=riscv64
 )
 

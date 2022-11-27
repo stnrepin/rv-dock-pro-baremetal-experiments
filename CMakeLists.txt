@@ -6,7 +6,7 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-set(PROJECTS "whoami")
+set(PROJECTS "hello" "whoami")
 set(RISCV_D1_LDSCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/sys/link.ld")
 
 add_compile_options(

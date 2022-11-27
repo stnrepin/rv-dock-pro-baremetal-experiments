@@ -2,6 +2,7 @@ add_library(
     riscv_d1_sys
         start.S
         kernel.c
+        mbox.c
         lradc.c
         uart.c
 )
