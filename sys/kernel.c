@@ -62,3 +62,7 @@ void call_handler(sys_ev_id_t ev) {
         h(ev);
     }
 }
+
+void _putchar(char c) {
+    sys_uart_putc(c);
+}

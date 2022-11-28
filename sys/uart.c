@@ -56,14 +56,14 @@ void sys_uart_putc(char c) {
 
     while((read32(addr + 0x7c) & (0x1 << 1)) == 0);
     write32(addr + 0x00, c);
+    if (c == '\n') {
+        sys_uart_putc('\r');
+    }
 }
 
 void sys_uart_puts(const char *s) {
     while (*s != '\0') {
         sys_uart_putc(*s);
-        if (*s == '\n') {
-            sys_uart_putc('\r');
-        }
         s++;
     }
 }
