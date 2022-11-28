@@ -1,9 +1,10 @@
 #include "sys/kernel.h"
 
-#include "sys/sysdef.h"
-#include "sys/uart.h"
+#include "sys/irq.h"
 #include "sys/lradc.h"
 #include "sys/mbox.h"
+#include "sys/sysdef.h"
+#include "sys/uart.h"
 
 struct sys_handlers g_handlers;
 struct sys_mbox_prios g_mboxes;
@@ -16,6 +17,8 @@ void sys_init(void) {
 
     sys_uart_init();
     sys_lradc_init();
+
+    sys_irq_enable_all();
 }
 
 void sys_init_handler(sys_handler_t h) {

@@ -5,6 +5,8 @@ add_library(
         kernel.c
         printf.c
         mbox.c
+        irq.c
+        plic.c
 
         lradc.c
         uart.c

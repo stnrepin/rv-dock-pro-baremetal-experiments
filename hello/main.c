@@ -1,5 +1,6 @@
 #include "sys/kernel.h"
 #include "sys/uart.h"
+#include "sys/plic.h"
 
 enum user_event : sys_ev_id_t {
     USER_EVENT_A = SYS_USER_MIN_EV,
@@ -28,9 +29,13 @@ static void handler(sys_ev_id_t ev) {
     sys_post(ev);
 }
 
+extern void table_val_set();
+
 int main(void) {
+    table_val_set();
     sys_init();
-    sys_uart_puts("Hello, D1!\n");
+
+    plic_enable(PLIC_LRADC);
 
     sys_init_handler(handler);
 
