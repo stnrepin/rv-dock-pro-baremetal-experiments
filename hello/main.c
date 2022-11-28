@@ -29,10 +29,7 @@ static void handler(sys_ev_id_t ev) {
     sys_post(ev);
 }
 
-extern void table_val_set();
-
 int main(void) {
-    table_val_set();
     sys_init();
 
     plic_enable(PLIC_LRADC);

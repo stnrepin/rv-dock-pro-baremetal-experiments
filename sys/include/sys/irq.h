@@ -7,7 +7,7 @@ extern void sys_irq_enable_all();
 extern void sys_irq_disable_all();
 
 __attribute__((interrupt("machine")))
-__attribute__((aligned(16)))
+__attribute__((aligned(64)))
         void sys_irq_handler(void);
 
 #endif // !SYS_IRQ_H

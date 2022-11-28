@@ -1,6 +1,10 @@
+.macro IRQ_DISABLE_ALL
+    csrrci x0, mstatus, 0x8
+.endm
+
     .global _start
 _start:
-    csrrci x0, mstatus, 0x8
+    IRQ_DISABLE_ALL
     csrw mie, zero
 
 .option push
@@ -11,15 +15,14 @@ _start:
 
     la sp, __stack_end
 
-_loop:
     jal main
-    j .
+_loop:
+    j _loop
 
-    .global table_val_set
-table_val_set:
-    la t0, sys_irq_handler
-    csrw mtvec, t0
-    jr ra
+    .global sys_irq_set_handler
+sys_irq_set_handler:
+    csrw mtvec, a0
+    ret
 
     .global sys_irq_enable_all
 sys_irq_enable_all:
@@ -28,5 +31,5 @@ sys_irq_enable_all:
 
     .global sys_irq_disable_all
 sys_irq_disable_all:
-    csrrci zero, mstatus, 0x8
+    IRQ_DISABLE_ALL
     ret

@@ -11,6 +11,9 @@ struct sys_mbox_prios g_mboxes;
 
 static void call_handler(sys_ev_id_t ev);
 
+typedef void(irq_handler_f)();
+extern void sys_irq_set_handler(irq_handler_f f);
+
 void sys_init(void) {
     sys_mbox_new_handlers(&g_handlers);
     sys_mbox_new_mbox_prio(&g_mboxes);
@@ -18,6 +21,7 @@ void sys_init(void) {
     sys_uart_init();
     sys_lradc_init();
 
+    sys_irq_set_handler(sys_irq_handler);
     sys_irq_enable_all();
 }
 

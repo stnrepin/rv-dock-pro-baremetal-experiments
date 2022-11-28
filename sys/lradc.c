@@ -52,6 +52,7 @@ void sys_lradc_init(void) {
 
 void sys_lradc_reset_irq(void) {
     uint32_t val = read32(LRADC_INTS);
+    printf("but0 irq\n");
     write32(LRADC_INTS, val);
 }
 
