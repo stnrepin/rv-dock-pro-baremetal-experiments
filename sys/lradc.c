@@ -1,6 +1,7 @@
 #include "sys/lradc.h"
 
-#include "sys/printf.h"
+#include "sys/plic.h"
+#include "sys/kernel.h"
 
 #define LRADC_BASE (0x02009800)
 
@@ -14,17 +15,26 @@
 #define LRADC_PLIC_N (77)
 #define LRADC_PLIC_MIE (0x2000 + LRADC_PLIC_N*0x0004)
 
-/* LRADC_CTRL bits */
-#define FIRST_CONVERT_DLY(x)	((x) << 24) /* 8 bits */
-#define CHAN_SELECT(x)		((x) << 22) /* 2 bits */
-#define CONTINUE_TIME_SEL(x)	((x) << 16) /* 4 bits */
-#define KEY_MODE_SEL(x)		((x) << 12) /* 2 bits */
-#define LEVELA_B_CNT(x)		((x) << 8)  /* 4 bits */
-#define HOLD_KEY_EN(x)		((x) << 7)
-#define HOLD_EN(x)		((x) << 6)
-#define LEVELB_VOL(x)		((x) << 4)  /* 2 bits */
-#define SAMPLE_RATE(x)		((x) << 2)  /* 2 bits */
-#define ENABLE(x)		((x) << 0)
+#define FIRST_CONVERT_DLY(x) ((x) << 24) // 8 bits
+#define CHAN_SELECT(x)       ((x) << 22) // 2 bits
+#define CONTINUE_TIME_SEL(x) ((x) << 16) // 4 bits
+#define KEY_MODE_SEL(x)      ((x) << 12) // 2 bits
+#define LEVELA_B_CNT(x)      ((x) << 8) // 4 bits
+#define HOLD_KEY_EN(x)       ((x) << 7)
+#define HOLD_EN(x)           ((x) << 6)
+#define LEVELB_VOL(x)        ((x) << 4) // 2 bits
+#define SAMPLE_RATE(x)       ((x) << 2) // 2 bits
+#define ENABLE(x)            ((x) << 0)
+
+#define CHAN0_KEYUP_IRQ (1 << 4)
+
+static void lradc_irq(void) {
+    uint32_t val = read32(LRADC_INTS);
+    if (val & CHAN0_KEYUP_IRQ) {
+        sys_post(SYS_EV_BUT0_UP);
+    }
+    write32(LRADC_INTS, val);
+}
 
 void sys_lradc_init(void) {
     uint32_t val;
@@ -48,12 +58,8 @@ void sys_lradc_init(void) {
     //
     val = 0x10; // ADC0_KEYUP_IRQ
     write32(LRADC_INTC, val);
-}
 
-void sys_lradc_reset_irq(void) {
-    uint32_t val = read32(LRADC_INTS);
-    printf("but0 irq\n");
-    write32(LRADC_INTS, val);
+    plic_set_handler(PLIC_IRQ_LRADC, lradc_irq);
 }
 
 uint8_t sys_lradc_data(void) {

@@ -31,9 +31,6 @@ static void handler(sys_ev_id_t ev) {
 
 int main(void) {
     sys_init();
-
-    plic_enable(PLIC_LRADC);
-
     sys_init_handler(handler);
 
     return sys_run();

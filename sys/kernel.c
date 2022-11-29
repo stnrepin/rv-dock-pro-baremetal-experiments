@@ -60,7 +60,6 @@ int sys_run(void) {
 }
 
 void call_handler(sys_ev_id_t ev) {
-    // disable irq?
     sys_handler_t *h;
 
     h = g_handlers.hs[ev];

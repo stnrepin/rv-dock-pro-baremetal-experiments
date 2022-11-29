@@ -15,9 +15,20 @@ _start:
 
     la sp, __stack_end
 
+    jal clear_bss
     jal main
 _loop:
+    wfi
     j _loop
+
+clear_bss:
+    la t0, __bss_start
+    la t1, __bss_end
+clear_bss_loop:
+    sw zero, 0(t0)
+    addi t0, t0, 4
+    blt t0, t1, clear_bss_loop
+    ret
 
     .global sys_irq_set_handler
 sys_irq_set_handler:

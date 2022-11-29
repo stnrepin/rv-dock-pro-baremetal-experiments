@@ -9,8 +9,7 @@
 enum sys_event : sys_ev_id_t {
     SYS_EV_NOP,
     SYS_EV_INIT,
-    SYS_EV_UART0,
-    SYS_EV_LRDAC,
+    SYS_EV_BUT0_UP,
 
     SYS_USER_MIN_EV,
 };
